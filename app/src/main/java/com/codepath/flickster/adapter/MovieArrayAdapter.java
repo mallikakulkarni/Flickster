@@ -32,35 +32,53 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     }
 
     public MovieArrayAdapter(Context context, List<Movie>movies) {
-        super(context, android.R.layout.simple_list_item_1, movies);
+        super(context, 0, movies);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Movie movie = getItem(position);
-        ViewHolder viewHolder;
+        ViewHolder viewHolder = null;
         if (convertView == null) {
-            viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.item_movie, parent, false);
-            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.iVMovieImage);
-            viewHolder.title = (TextView) convertView.findViewById(tvTitle);
-            viewHolder.overview = (TextView) convertView.findViewById(tvOverview);
+            convertView = getConvertView(inflater, movie, parent);
+            viewHolder = getViewFields(movie, inflater, convertView, parent);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.title.setText(movie.getOriginalTitle());
-        viewHolder.overview.setText(movie.getOverview());
-        int orientation = getContext().getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Picasso.with(getContext()).load(movie.getPosterPath()).transform(new RoundedCornersTransformation(5, 5)).into(viewHolder.imageView);
-        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Picasso.with(getContext()).load(movie.getBackgroundImagePath()).transform(new RoundedCornersTransformation(5, 5)).into(viewHolder.imageView);
+        if (movie.getRating() < 5) {
+            viewHolder.title.setText(movie.getOriginalTitle());
+            viewHolder.overview.setText(movie.getOverview());
         }
+        fitImageToOrientation(movie, viewHolder);
         notifyDataSetChanged();
 
         return convertView;
+    }
+
+    private void fitImageToOrientation(Movie movie, ViewHolder viewHolder) {
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT && movie.getRating() < 5) {
+            Picasso.with(getContext()).load(movie.getPosterPath()).transform(new RoundedCornersTransformation(5, 5)).into(viewHolder.imageView);
+        } else {
+            Picasso.with(getContext()).load(movie.getBackgroundImagePath()).transform(new RoundedCornersTransformation(5, 5)).into(viewHolder.imageView);
+        }
+    }
+
+    private View getConvertView(LayoutInflater inflater, Movie movie, ViewGroup parent) {
+        if (movie.getRating() < 5) {
+            return inflater.inflate(R.layout.item_movie, parent, false);
+        }
+        return inflater.inflate(R.layout.item_backdrop, parent, false);
+    }
+
+    private ViewHolder getViewFields(Movie movie, LayoutInflater inflater, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder = new ViewHolder();
+        viewHolder.imageView = (ImageView) convertView.findViewById(R.id.iVMovieThumbnail);
+        viewHolder.title = (TextView) convertView.findViewById(tvTitle);
+        viewHolder.overview = (TextView) convertView.findViewById(tvOverview);
+        return viewHolder;
     }
 
 }

@@ -15,6 +15,7 @@ public class Movie {
     private String posterPath;
     private String originalTitle;
     private String overview;
+    private int rating;
     private String backgroundImagePath;
 
     public Movie(JSONObject jsonObject) throws JSONException{
@@ -22,6 +23,15 @@ public class Movie {
         this.backgroundImagePath = String.format("https://image.tmdb.org/t/p/w342%s", jsonObject.getString("backdrop_path"));
         this.originalTitle = jsonObject.getString("original_title");
         this.overview = jsonObject.getString("overview");
+        this.rating = (int) Math.round(jsonObject.getDouble("vote_average"));
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public String getBackgroundImagePath() {

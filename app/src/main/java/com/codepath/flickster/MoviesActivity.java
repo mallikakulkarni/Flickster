@@ -1,7 +1,6 @@
 package com.codepath.flickster;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
@@ -27,13 +26,11 @@ public class MoviesActivity extends AppCompatActivity {
     List<Movie> movies;
     MovieArrayAdapter movieArrayAdapter;
     ListView lvItems;
-    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         lvItems = (ListView) findViewById(R.id.lvMovies);
         movies = new ArrayList<>();
         movieArrayAdapter = new MovieArrayAdapter(this, movies);

@@ -17,6 +17,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -31,20 +33,22 @@ public class DetailsActivity extends AppCompatActivity {
     String urlFirst = "https://api.themoviedb.org/3/movie/";
     String urlSecond = "/trailers?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
     String google_api_key = "AIzaSyBV-Q-hnfNKB3_eqDmJY_Xe6xwkaYlA4xg";
+    @BindView(R.id.tvDetailsTitle) TextView tvTitle;
+    @BindView(R.id.tvDetailsOverview) TextView tvOverview;
+    @BindView(R.id.tvDetailsRatingBar) RatingBar tvRating;
+    @BindView(R.id.tvDetailsReleaseDate) TextView tvReleaseDate;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details);
+        ButterKnife.bind(this);
         String releaseDate = "Release Date: " + getIntent().getStringExtra("releaseDate");
         String title = getIntent().getStringExtra("title");
         int rating = getIntent().getIntExtra("rating", 0);
         String overview = getIntent().getStringExtra("overview");
-        TextView tvTitle = (TextView) findViewById(R.id.tvDetailsTitle);
         tvTitle.setText(title);
-        TextView tvOverview = (TextView) findViewById(R.id.tvDetailsOverview);
         tvOverview.setText(overview);
-        RatingBar tvRating = (RatingBar) findViewById(R.id.tvDetailsRatingBar);
         tvRating.setNumStars(rating/2);
-        TextView tvReleaseDate = (TextView) findViewById(R.id.tvDetailsReleaseDate);
         tvReleaseDate.setText(releaseDate);
         YouTubePlayerFragment youTubePlayerFragment = (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.tvDetailsVideoView);
         youTubePlayerFragment.initialize(google_api_key, new YouTubePlayer.OnInitializedListener() {

@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -26,13 +28,13 @@ import okhttp3.Response;
 public class MoviesActivity extends AppCompatActivity {
     List<Movie> movies;
     MovieArrayAdapter movieArrayAdapter;
-    ListView lvItems;
+    @BindView(R.id.lvMovies) ListView lvItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
-        lvItems = (ListView) findViewById(R.id.lvMovies);
+        ButterKnife.bind(this);
         movies = new ArrayList<>();
         movieArrayAdapter = new MovieArrayAdapter(MoviesActivity.this, movies);
         lvItems.setAdapter(movieArrayAdapter);

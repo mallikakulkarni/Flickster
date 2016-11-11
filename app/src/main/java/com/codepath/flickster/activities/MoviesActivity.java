@@ -1,5 +1,6 @@
 package com.codepath.flickster.activities;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.widget.ListView;
 
 import com.codepath.flickster.R;
 import com.codepath.flickster.adapter.MovieArrayAdapter;
+import com.codepath.flickster.databinding.ActivityMoviesBinding;
 import com.codepath.flickster.models.Movie;
 
 import org.json.JSONArray;
@@ -17,7 +19,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,13 +29,15 @@ import okhttp3.Response;
 public class MoviesActivity extends AppCompatActivity {
     List<Movie> movies;
     MovieArrayAdapter movieArrayAdapter;
-    @BindView(R.id.lvMovies) ListView lvItems;
+    private ActivityMoviesBinding binding;
+    ListView lvItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movies);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_movies);
         ButterKnife.bind(this);
+        lvItems = binding.lvMovies;
         movies = new ArrayList<>();
         movieArrayAdapter = new MovieArrayAdapter(MoviesActivity.this, movies);
         lvItems.setAdapter(movieArrayAdapter);

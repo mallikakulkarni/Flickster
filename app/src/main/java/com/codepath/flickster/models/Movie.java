@@ -18,6 +18,7 @@ public class Movie {
     private int rating;
     private String backgroundImagePath;
     private String releaseDate;
+    private int id;
 
     public Movie(JSONObject jsonObject) throws JSONException{
         this.posterPath = String.format("https://image.tmdb.org/t/p/w342%s", jsonObject.getString("poster_path"));
@@ -26,6 +27,15 @@ public class Movie {
         this.overview = jsonObject.getString("overview");
         this.rating = (int) Math.round(jsonObject.getDouble("vote_average"));
         this.releaseDate = jsonObject.getString("release_date");
+        this.id = jsonObject.getInt("id");
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getReleaseDate() {

@@ -1,10 +1,11 @@
-package com.codepath.flickster;
+package com.codepath.flickster.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.codepath.flickster.R;
 import com.codepath.flickster.adapter.MovieArrayAdapter;
 import com.codepath.flickster.models.Movie;
 
@@ -33,7 +34,7 @@ public class MoviesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movies);
         lvItems = (ListView) findViewById(R.id.lvMovies);
         movies = new ArrayList<>();
-        movieArrayAdapter = new MovieArrayAdapter(this, movies);
+        movieArrayAdapter = new MovieArrayAdapter(MoviesActivity.this, movies);
         lvItems.setAdapter(movieArrayAdapter);
         lvItems.setItemsCanFocus(true);
 

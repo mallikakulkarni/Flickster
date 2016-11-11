@@ -10,8 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.codepath.flickster.DetailsActivity;
 import com.codepath.flickster.R;
+import com.codepath.flickster.activities.AutoPlayActivity;
+import com.codepath.flickster.activities.DetailsActivity;
 import com.codepath.flickster.models.Movie;
 import com.squareup.picasso.Picasso;
 
@@ -52,7 +53,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, final ViewGroup parent) {
         final Movie movie = getItem(position);
         ViewHolder viewHolder = null;
         if (convertView == null) {
@@ -68,18 +69,21 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             viewHolder.title.setText(movie.getOriginalTitle());
             viewHolder.overview.setText(movie.getOverview());
         }
+        fitImageToOrientation(movie, viewHolder);
+        notifyDataSetChanged();
         convertView.setClickable(true);
         convertView.setFocusable(true);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Movie movie1 = movie;
-                viewDetails(movie1);
+                if (movie.getRating() < 5) {
+                    viewDetails(movie1);
+                } else {
+                    loadYoutubeActivity(movie1);
+                }
             }
         });
-        fitImageToOrientation(movie, viewHolder);
-        notifyDataSetChanged();
-
         return convertView;
     }
 
@@ -97,6 +101,8 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             return inflater.inflate(R.layout.item_movie, parent, false);
         } else if (type == 1) {
             return inflater.inflate(R.layout.item_backdrop, parent, false);
+        } else if (type == 2) {
+            return inflater.inflate(R.layout.movie_video, parent, false);
         }
         return null;
     }
@@ -115,6 +121,13 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         intent.putExtra("rating", movie.getRating());
         intent.putExtra("overview", movie.getOverview());
         intent.putExtra("releaseDate", movie.getReleaseDate());
+        intent.putExtra("id", movie.getId());
+        getContext().startActivity(intent);
+    }
+
+    private void loadYoutubeActivity(Movie movie) {
+        Intent intent = new Intent(getContext(), AutoPlayActivity.class);
+        intent.putExtra("id", movie.getId());
         getContext().startActivity(intent);
     }
 

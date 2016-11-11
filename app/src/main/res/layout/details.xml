@@ -6,10 +6,12 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp">
 
-    <VideoView
-        android:layout_width="match_parent"
-        android:layout_height="205dp"
-        android:id="@+id/tvDetailsVideoView" />
+    <fragment
+        android:id="@+id/tvDetailsVideoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.google.android.youtube.player.YouTubePlayerFragment">
+    </fragment>
 
     <TextView
         android:text="TextView"

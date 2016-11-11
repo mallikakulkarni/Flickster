@@ -1,8 +1,11 @@
 package com.codepath.flickster;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.codepath.flickster.adapter.MovieArrayAdapter;
@@ -26,6 +29,7 @@ public class MoviesActivity extends AppCompatActivity {
     List<Movie> movies;
     MovieArrayAdapter movieArrayAdapter;
     ListView lvItems;
+    private final int REQUEST_CODE = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,5 +69,22 @@ public class MoviesActivity extends AppCompatActivity {
                 }
             }
         });
+        setupViewDetailsListener();
     }
+
+    private void setupViewDetailsListener() {
+        lvItems.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View item, int position, long id) {
+                        viewDetails(movies.get(position));
+                    }
+                });
+    }
+
+    public void viewDetails(Movie movie) {
+        Intent intent = new Intent(MoviesActivity.this, DetailsActivity.class);
+        intent.putExtra("movie", movie);
+    }
+
 }

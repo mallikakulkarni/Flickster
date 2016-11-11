@@ -6,4 +6,6 @@
     <color name="movieTitle">#FFFFFF</color>
     <color name="movieOverview">#F1F1F1</color>
     <color name="portraitBackground">#333333</color>
+    <color name="detailsBackground">#666666</color>
+    <color name="ratingBar">#999999</color>
 </resources>

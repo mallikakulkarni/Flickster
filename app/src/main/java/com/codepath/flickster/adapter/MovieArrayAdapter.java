@@ -1,6 +1,7 @@
 package com.codepath.flickster.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.flickster.DetailsActivity;
 import com.codepath.flickster.R;
 import com.codepath.flickster.models.Movie;
 import com.squareup.picasso.Picasso;
@@ -25,6 +27,8 @@ import static com.codepath.flickster.R.id.tvTitle;
  */
 
 public class MovieArrayAdapter extends ArrayAdapter<Movie> {
+    private final int viewCount = 2;
+
     private static class ViewHolder {
         ImageView imageView;
         TextView title;
@@ -36,12 +40,25 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     }
 
     @Override
+    public int getViewTypeCount() {
+        return viewCount;
+    }
+
+    // Get the type of View that will be created by getView(int, View, ViewGroup)
+    // for the specified item.
+    @Override
+    public int getItemViewType(int position) {
+        return getItem(position).getRating() < 5 ? 0 : 1;
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Movie movie = getItem(position);
+        final Movie movie = getItem(position);
         ViewHolder viewHolder = null;
         if (convertView == null) {
+            int type = getItemViewType(position);
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = getConvertView(inflater, movie, parent);
+            convertView = getConvertView(type, inflater, movie, parent);
             viewHolder = getViewFields(movie, inflater, convertView, parent);
             convertView.setTag(viewHolder);
         } else {
@@ -51,6 +68,15 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             viewHolder.title.setText(movie.getOriginalTitle());
             viewHolder.overview.setText(movie.getOverview());
         }
+        convertView.setClickable(true);
+        convertView.setFocusable(true);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Movie movie1 = movie;
+                viewDetails(movie1);
+            }
+        });
         fitImageToOrientation(movie, viewHolder);
         notifyDataSetChanged();
 
@@ -66,11 +92,13 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         }
     }
 
-    private View getConvertView(LayoutInflater inflater, Movie movie, ViewGroup parent) {
-        if (movie.getRating() < 5) {
+    private View getConvertView(int type, LayoutInflater inflater, Movie movie, ViewGroup parent) {
+        if (type == 0) {
             return inflater.inflate(R.layout.item_movie, parent, false);
+        } else if (type == 1) {
+            return inflater.inflate(R.layout.item_backdrop, parent, false);
         }
-        return inflater.inflate(R.layout.item_backdrop, parent, false);
+        return null;
     }
 
     private ViewHolder getViewFields(Movie movie, LayoutInflater inflater, View convertView, ViewGroup parent) {
@@ -79,6 +107,15 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         viewHolder.title = (TextView) convertView.findViewById(tvTitle);
         viewHolder.overview = (TextView) convertView.findViewById(tvOverview);
         return viewHolder;
+    }
+
+    private void viewDetails(Movie movie) {
+        Intent intent = new Intent(getContext(), DetailsActivity.class);
+        intent.putExtra("title", movie.getOriginalTitle());
+        intent.putExtra("rating", movie.getRating());
+        intent.putExtra("overview", movie.getOverview());
+        intent.putExtra("releaseDate", movie.getReleaseDate());
+        getContext().startActivity(intent);
     }
 
 }

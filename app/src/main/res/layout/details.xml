@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/detailsBackground"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="205dp"
+        android:id="@+id/tvDetailsVideoView" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDetailsTitle"
+        android:textSize="30sp"
+        android:textColor="@color/movieTitle" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDetailsReleaseDate"
+        android:textColor="@color/movieTitle"
+        android:textSize="12sp" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:id="@+id/tvDetailsRatingBar"
+        android:progressTint="@color/ratingBar"
+        android:clickable="false" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDetailsOverview"
+        android:textColor="@color/movieOverview"
+        android:textSize="12sp" />
+
+</LinearLayout>

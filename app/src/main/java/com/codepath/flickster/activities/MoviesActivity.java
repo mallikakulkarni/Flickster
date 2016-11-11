@@ -19,11 +19,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-=======
-import butterknife.BindView;
->>>>>>> 403e25e18ff4186bd00632f9fe092e97c453c3e2
-import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;

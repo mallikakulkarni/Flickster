@@ -1,11 +1,11 @@
-package com.codepath.flickster;
+package com.codepath.flickster.activities;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.codepath.flickster.R;
 import com.codepath.flickster.adapter.MovieArrayAdapter;
 import com.codepath.flickster.models.Movie;
 
@@ -27,17 +27,16 @@ public class MoviesActivity extends AppCompatActivity {
     List<Movie> movies;
     MovieArrayAdapter movieArrayAdapter;
     ListView lvItems;
-    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         lvItems = (ListView) findViewById(R.id.lvMovies);
         movies = new ArrayList<>();
-        movieArrayAdapter = new MovieArrayAdapter(this, movies);
+        movieArrayAdapter = new MovieArrayAdapter(MoviesActivity.this, movies);
         lvItems.setAdapter(movieArrayAdapter);
+        lvItems.setItemsCanFocus(true);
 
         String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 

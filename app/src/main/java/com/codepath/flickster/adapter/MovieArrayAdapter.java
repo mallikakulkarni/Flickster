@@ -28,7 +28,7 @@ import static com.codepath.flickster.R.id.tvTitle;
  */
 
 public class MovieArrayAdapter extends ArrayAdapter<Movie> {
-    private final int viewCount = 2;
+    private final int viewCount = 3;
 
     private static class ViewHolder {
         ImageView imageView;
@@ -49,7 +49,12 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     // for the specified item.
     @Override
     public int getItemViewType(int position) {
-        return getItem(position).getRating() < 5 ? 0 : 1;
+        Movie movie = getItem(position);
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            return 2;
+        }
+        return (movie.getRating() < 5) ? 0 : 1;
     }
 
     @Override
@@ -65,7 +70,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (movie.getRating() < 5) {
+        if (movie.getRating() < 5 || getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             viewHolder.title.setText(movie.getOriginalTitle());
             viewHolder.overview.setText(movie.getOverview());
         }
@@ -102,7 +107,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         } else if (type == 1) {
             return inflater.inflate(R.layout.item_backdrop, parent, false);
         } else if (type == 2) {
-            return inflater.inflate(R.layout.movie_video, parent, false);
+            return inflater.inflate(R.layout.item_landscape, parent, false);
         }
         return null;
     }

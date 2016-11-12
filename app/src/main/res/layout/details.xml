@@ -33,8 +33,11 @@
         android:layout_width="wrap_content"
         android:layout_height="54dp"
         android:id="@+id/tvDetailsRatingBar"
-        android:progressTint="@color/ratingBar"
-        android:clickable="false" />
+        android:clickable="false"
+        android:background="@drawable/ratingformat"
+        android:isIndicator="true"
+        style="@android:style/Widget.RatingBar"
+        android:theme="@style/RatingBar"/>
 
     <TextView
         android:text="TextView"

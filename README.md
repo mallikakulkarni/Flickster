@@ -48,6 +48,9 @@ Here's a walkthrough of implemented user stories:
 <img src='http://i.imgur.com/qnhu7Ld.gif' title='Flickster - Portrait mode' width='' alt='Flickster - Portrait mode' />
 <img src='http://i.imgur.com/2hY3W11.gif' title='Flickster - Landscape mode' width='' alt='Flickster - Landscape mode' />
 
+Also view at
+http://i.imgur.com/qnhu7Ld.gif
+http://i.imgur.com/2hY3W11.gif
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes

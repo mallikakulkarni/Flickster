@@ -45,8 +45,8 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://imgur.com/qnhu7Ld' title='Flickster - Portrait mode' width='' alt='Flickster - Portrait mode' />
-<img src='http://imgur.com/a/jVpy8' title='Flickster - Landscape mode' width='' alt='Flickster - Landscape mode' />
+<img src='http://i.imgur.com/qnhu7Ld.gif' title='Flickster - Portrait mode' width='' alt='Flickster - Portrait mode' />
+<img src='http://i.imgur.com/2hY3W11.gif' title='Flickster - Landscape mode' width='' alt='Flickster - Landscape mode' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

@@ -7,8 +7,8 @@
 
     <TextView
         android:text="TextView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
         android:id="@+id/tvTitle"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_alignParentTop="true"
@@ -18,8 +18,8 @@
 
     <TextView
         android:text="TextView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tvTitle"
         android:layout_toRightOf="@+id/iVMovieThumbnail"
         android:layout_toEndOf="@+id/iVMovieThumbnail"
@@ -45,10 +45,15 @@
         android:id="@+id/playButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_centerInParent="true"
         android:text="btn1"
         android:scaleType="centerInside"
         android:src="@android:drawable/ic_media_play"
-        android:background="@drawable/playicon" />
+        android:background="@drawable/playicon"
+        android:visibility="visible"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/iVMovieThumbnail"
+        android:layout_alignEnd="@+id/iVMovieThumbnail"
+        android:layout_marginRight="144dp"
+        android:layout_marginEnd="144dp" />
 
 </RelativeLayout>
